@@ -57,7 +57,7 @@ body {
   opacity: 0.5;
 }
 
-.btn:focus {
+.btn:focus-visible {
   outline: 4px solid #30b060;
 }
 

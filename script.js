@@ -204,12 +204,12 @@ document.body.addEventListener("keyup", (event) => {
 
 // Clear and Equal Event Listeners
 clearBtn.addEventListener("click", () => {
-  currentCalc += "";
+  currentCalc = "";
   resultDisplay.innerHTML = "Cleared...";
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "c") {
-    currentCalc += "";
+    currentCalc = "";
     resultDisplay.innerHTML = "Cleared...";
   }
 });
@@ -225,3 +225,15 @@ document.body.addEventListener("keyup", (event) => {
     resultDisplay.innerHTML = currentCalc;
   }
 });
+
+document.body.addEventListener("keyup", (event) => {
+  if (event.key === "=") {
+    currentCalc = eval(currentCalc);
+    resultDisplay.innerHTML = currentCalc;
+  }
+});
+
+
+/*
+  - Put a set interval time on it
+*/

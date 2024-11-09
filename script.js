@@ -24,6 +24,7 @@ const nineBtn = document.querySelector(".nine-btn");
 
 // Symbol Buttons
 const clearBtn = document.querySelector(".clear-btn");
+const deleteBtn = document.querySelector(".delete-btn");
 const divideBtn = document.querySelector(".divide-btn");
 const multiplyBtn = document.querySelector(".multiply-btn");
 const minusBtn = document.querySelector(".minus-btn");
@@ -205,34 +206,63 @@ document.body.addEventListener("keyup", (event) => {
 // Clear and Equal Event Listeners
 clearBtn.addEventListener("click", () => {
   currentCalc = "";
-  resultDisplay.innerHTML = "Cleared...";
+  resultDisplay.innerHTML = "0";
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "c") {
     currentCalc = "";
-    resultDisplay.innerHTML = "Cleared...";
+    resultDisplay.innerHTML = "0";
   }
 });
 
 equalBtn.addEventListener("click", () => {
-  currentCalc = eval(currentCalc);
-  resultDisplay.innerHTML = currentCalc;
+  if (currentCalc.includes(" / 0")) {
+    alert("You can't divide by 0");
+  } else {
+    // eval() makes converts currentCalc from string to number. Keep it a string so deleteBtn can slice().
+    currentCalc = String(eval(currentCalc));
+    resultDisplay.innerHTML = currentCalc;
+  }
 });
 
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
-    currentCalc = eval(currentCalc);
-    resultDisplay.innerHTML = currentCalc;
+    if (currentCalc.includes(" / 0")) {
+      alert("You can't divide by 0");
+    } else {
+      // eval() makes converts currentCalc from string to number. Keep it a string so deleteBtn can slice().
+      currentCalc = String(eval(currentCalc));
+      resultDisplay.innerHTML = currentCalc;
+    }
   }
 });
 
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "=") {
-    currentCalc = eval(currentCalc);
-    resultDisplay.innerHTML = currentCalc;
+    if (currentCalc.includes(" / 0")) {
+      alert("You can't divide by 0");
+    } else {
+      // eval() makes converts currentCalc from string to number. We'll keep it a string so deleteBtn can slice() it. slice() won't work with numbers.
+      currentCalc = String(eval(currentCalc));
+      resultDisplay.innerHTML = currentCalc;
+    }
   }
 });
 
+// Delete Button Event Listeners
+deleteBtn.addEventListener("click", () => {
+  // Slicing/keeping all but the last character in currentCalc, effectively deleting the last character.
+  currentCalc = currentCalc.slice(0, -1);
+  resultDisplay.innerHTML = currentCalc || '0';
+});
+
+document.body.addEventListener("keyup", (event) => {
+  if (event.key === "Backspace") {
+    // Slicing/keeping all but the last character in currentCalc, effectively deleting the last character.
+    currentCalc = currentCalc.slice(0, -1);
+    resultDisplay.innerHTML = currentCalc || '0';
+  }
+});
 
 /*
   - Put a set interval time on it

@@ -148,58 +148,156 @@ document.body.addEventListener("keyup", (event) => {
 });
 
 // Symbol Buttons Event Listeners
+
+// Decimal logic
+let isDecimalLocked = false;
 decimalBtn.addEventListener("click", () => {
-  currentCalc += ".";
-  resultDisplay.innerHTML = currentCalc;
+  // If the decimalBtn is locked, bail out of the function.
+  if (isDecimalLocked) {
+    return;
+  } // If decimalBtn is not locked, we want to put it on our display, if it falls under these conditons
+  else if (!isDecimalLocked) {
+    if (currentCalc.slice(-1) === "." || currentCalc.slice(-1) === " ") {
+      return;
+    }
+    // Regex to check if last char in currentCalc is a digit,
+    else if (/\d/.test(currentCalc.slice(-1)) && !isDecimalLocked) {
+      currentCalc += ".";
+      resultDisplay.innerHTML = currentCalc;
+      isDecimalLocked = true;
+    }
+  }
 });
+
 document.body.addEventListener("keyup", (event) => {
   if (event.key === ".") {
-    currentCalc += ".";
-    resultDisplay.innerHTML = currentCalc;
+    // If the decimalBtn is locked, bail out of the function.
+    if (isDecimalLocked) {
+      return;
+    } // If decimalBtn is not locked, we want to put it on our display, if it falls under these conditons
+    else if (!isDecimalLocked) {
+      if (currentCalc.slice(-1) === "." || currentCalc.slice(-1) === " ") {
+        return;
+      }
+      // Regex to check if last char in currentCalc is a digit,
+      else if (/\d/.test(currentCalc.slice(-1)) && !isDecimalLocked) {
+        currentCalc += ".";
+        resultDisplay.innerHTML = currentCalc;
+        isDecimalLocked = true;
+      }
+    }
   }
 });
 
 divideBtn.addEventListener("click", () => {
-  currentCalc += " / ";
-  resultDisplay.innerHTML = currentCalc;
+  if (currentCalc.slice(-3) === " / " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " * " ||
+    currentCalc.slice(-3) === " + " ||
+    currentCalc.slice(-3) === " - "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " / ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    currentCalc += " / ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "/") {
     currentCalc += " / ";
     resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
   }
 });
 
 multiplyBtn.addEventListener("click", () => {
-  currentCalc += " * ";
-  resultDisplay.innerHTML = currentCalc;
+  if (currentCalc.slice(-3) === " * " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " / " ||
+    currentCalc.slice(-3) === " + " ||
+    currentCalc.slice(-3) === " - "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " * ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    currentCalc += " * ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "*") {
     currentCalc += " * ";
     resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
   }
 });
 
 minusBtn.addEventListener("click", () => {
-  currentCalc += " - ";
-  resultDisplay.innerHTML = currentCalc;
+  if (currentCalc.slice(-3) === " - " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " * " ||
+    currentCalc.slice(-3) === " + " ||
+    currentCalc.slice(-3) === " / "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " - ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    currentCalc += " - ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "-") {
     currentCalc += " - ";
     resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
   }
 });
 
 plusBtn.addEventListener("click", () => {
-  currentCalc += " + ";
-  resultDisplay.innerHTML = currentCalc;
+  if (currentCalc.slice(-3) === " + " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " * " ||
+    currentCalc.slice(-3) === " / " ||
+    currentCalc.slice(-3) === " - "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " + ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    currentCalc += " + ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "+") {
     currentCalc += " + ";
     resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
   }
 });
 
@@ -207,16 +305,21 @@ document.body.addEventListener("keyup", (event) => {
 clearBtn.addEventListener("click", () => {
   currentCalc = "";
   resultDisplay.innerHTML = "0";
+  isDecimalLocked = false;
 });
 document.body.addEventListener("keyup", (event) => {
-  if (event.key === "c") {
+  if (event.key === "c" || event.key === "C") {
     currentCalc = "";
     resultDisplay.innerHTML = "0";
   }
+  // Reset decimal lock
+  isDecimalLocked = false;
 });
 
 equalBtn.addEventListener("click", () => {
-  if (currentCalc.includes(" / 0")) {
+  if (currentCalc === "") {
+    return;
+  } else if (currentCalc.includes(" / 0")) {
     alert("You can't divide by 0");
   } else {
     // eval() makes converts currentCalc from string to number. Keep it a string so deleteBtn can slice().
@@ -253,17 +356,13 @@ document.body.addEventListener("keyup", (event) => {
 deleteBtn.addEventListener("click", () => {
   // Slicing/keeping all but the last character in currentCalc, effectively deleting the last character.
   currentCalc = currentCalc.slice(0, -1);
-  resultDisplay.innerHTML = currentCalc || '0';
+  resultDisplay.innerHTML = currentCalc || "0";
 });
 
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "Backspace") {
     // Slicing/keeping all but the last character in currentCalc, effectively deleting the last character.
     currentCalc = currentCalc.slice(0, -1);
-    resultDisplay.innerHTML = currentCalc || '0';
+    resultDisplay.innerHTML = currentCalc || "0";
   }
 });
-
-/*
-  - Put a set interval time on it
-*/

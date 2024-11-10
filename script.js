@@ -3,7 +3,7 @@
   - When we hit "=" (equal button), we evaluate the expression is display
   - Last, we display the result
   - Optional:
-    - Add buttons for "()""
+    - Add buttons for "()"
 */
 
 // - - - Bringing HTML Elements to JS
@@ -35,115 +35,179 @@ const equalBtn = document.querySelector(".equal-btn");
 // String var for display result
 let currentCalc = "";
 
+// --- MATH FUNCTIONS
+// Updates the currentCalc value, func used everytime we click a button
+function updateCurrentCalc(value) {
+  currentCalc += value;
+  resultDisplay.innerHTML = currentCalc;
+}
+
+// Operators Validation
+function validateDivideButton() {
+  if (currentCalc.slice(-3) === " / " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " * " ||
+    currentCalc.slice(-3) === " + " ||
+    currentCalc.slice(-3) === " - "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " / ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    updateCurrentCalc(" / ");
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
+}
+
+function validateMultiplyButton() {
+  if (currentCalc.slice(-3) === " * " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " / " ||
+    currentCalc.slice(-3) === " + " ||
+    currentCalc.slice(-3) === " - "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " * ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    updateCurrentCalc(" * ");
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
+}
+
+function validateMinusButton() {
+  if (currentCalc.slice(-3) === " - " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " * " ||
+    currentCalc.slice(-3) === " + " ||
+    currentCalc.slice(-3) === " / "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " - ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    updateCurrentCalc(" - ");
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
+}
+
+function validatePlusButton() {
+  if (currentCalc.slice(-3) === " + " || currentCalc === "") {
+    return;
+  } else if (
+    currentCalc.slice(-3) === " * " ||
+    currentCalc.slice(-3) === " / " ||
+    currentCalc.slice(-3) === " - "
+  ) {
+    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " + ";
+    resultDisplay.innerHTML = currentCalc;
+    // Reset decimal lock
+    isDecimalLocked = false;
+  } else {
+    updateCurrentCalc(" + ");
+    // Reset decimal lock
+    isDecimalLocked = false;
+  }
+}
+
 // --- Event Listeners and their keyup counterparts
 // Number Buttons Event Listeners
 zeroBtn.addEventListener("click", () => {
-  currentCalc += 0;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(0);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "0") {
-    currentCalc += 0;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(0);
   }
 });
 
 oneBtn.addEventListener("click", () => {
-  currentCalc += 1;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(1);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "1") {
-    currentCalc += 1;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(1);
   }
 });
 
 twoBtn.addEventListener("click", () => {
-  currentCalc += 2;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(2);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "2") {
-    currentCalc += 2;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(2);
   }
 });
 
 threeBtn.addEventListener("click", () => {
-  currentCalc += 3;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(3);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "3") {
-    currentCalc += 3;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(3);
   }
 });
 
 fourBtn.addEventListener("click", () => {
-  currentCalc += 4;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(4);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "4") {
-    currentCalc += 4;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(4);
   }
 });
 
 fiveBtn.addEventListener("click", () => {
-  currentCalc += 5;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(5);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "5") {
-    currentCalc += 5;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(5);
   }
 });
 
 sixBtn.addEventListener("click", () => {
-  currentCalc += 6;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(6);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "6") {
-    currentCalc += 6;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(6);
   }
 });
 
 sevenBtn.addEventListener("click", () => {
-  currentCalc += 7;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(7);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "7") {
-    currentCalc += 7;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(7);
   }
 });
 
 eightBtn.addEventListener("click", () => {
-  currentCalc += 8;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(8);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "8") {
-    currentCalc += 8;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(8);
   }
 });
 
 nineBtn.addEventListener("click", () => {
-  currentCalc += 9;
-  resultDisplay.innerHTML = currentCalc;
+  updateCurrentCalc(9);
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "9") {
-    currentCalc += 9;
-    resultDisplay.innerHTML = currentCalc;
+    updateCurrentCalc(9);
   }
 });
 
@@ -162,8 +226,7 @@ decimalBtn.addEventListener("click", () => {
     }
     // Regex to check if last char in currentCalc is a digit,
     else if (/\d/.test(currentCalc.slice(-1)) && !isDecimalLocked) {
-      currentCalc += ".";
-      resultDisplay.innerHTML = currentCalc;
+      updateCurrentCalc(".");
       isDecimalLocked = true;
     }
   }
@@ -181,8 +244,7 @@ document.body.addEventListener("keyup", (event) => {
       }
       // Regex to check if last char in currentCalc is a digit,
       else if (/\d/.test(currentCalc.slice(-1)) && !isDecimalLocked) {
-        currentCalc += ".";
-        resultDisplay.innerHTML = currentCalc;
+        updateCurrentCalc(".");
         isDecimalLocked = true;
       }
     }
@@ -190,114 +252,38 @@ document.body.addEventListener("keyup", (event) => {
 });
 
 divideBtn.addEventListener("click", () => {
-  if (currentCalc.slice(-3) === " / " || currentCalc === "") {
-    return;
-  } else if (
-    currentCalc.slice(-3) === " * " ||
-    currentCalc.slice(-3) === " + " ||
-    currentCalc.slice(-3) === " - "
-  ) {
-    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " / ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  } else {
-    currentCalc += " / ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  }
+  validateDivideButton();
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "/") {
-    currentCalc += " / ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
+    validateDivideButton();
   }
 });
 
 multiplyBtn.addEventListener("click", () => {
-  if (currentCalc.slice(-3) === " * " || currentCalc === "") {
-    return;
-  } else if (
-    currentCalc.slice(-3) === " / " ||
-    currentCalc.slice(-3) === " + " ||
-    currentCalc.slice(-3) === " - "
-  ) {
-    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " * ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  } else {
-    currentCalc += " * ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  }
+  validateMultiplyButton();
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "*") {
-    currentCalc += " * ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
+    validateMultiplyButton();
   }
 });
 
 minusBtn.addEventListener("click", () => {
-  if (currentCalc.slice(-3) === " - " || currentCalc === "") {
-    return;
-  } else if (
-    currentCalc.slice(-3) === " * " ||
-    currentCalc.slice(-3) === " + " ||
-    currentCalc.slice(-3) === " / "
-  ) {
-    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " - ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  } else {
-    currentCalc += " - ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  }
+  validateMinusButton();
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "-") {
-    currentCalc += " - ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
+    validateMinusButton();
   }
 });
 
 plusBtn.addEventListener("click", () => {
-  if (currentCalc.slice(-3) === " + " || currentCalc === "") {
-    return;
-  } else if (
-    currentCalc.slice(-3) === " * " ||
-    currentCalc.slice(-3) === " / " ||
-    currentCalc.slice(-3) === " - "
-  ) {
-    currentCalc = currentCalc.slice(0, currentCalc.length - 3) + " + ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  } else {
-    currentCalc += " + ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
-  }
+  validatePlusButton();
 });
 document.body.addEventListener("keyup", (event) => {
   if (event.key === "+") {
-    currentCalc += " + ";
-    resultDisplay.innerHTML = currentCalc;
-    // Reset decimal lock
-    isDecimalLocked = false;
+    validatePlusButton();
   }
 });
 
